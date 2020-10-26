@@ -156,13 +156,19 @@ export default function BoardsList() {
                     </Card>
                   </Grid>
               ))
+              } else if (boards) {
+                return <Box fontStyle="italic" justifyContent="center" width="100%">
+                  <Typography variant="body2" color="textSecondary">
+                    Đang tải các boards của bạn...
+                  </Typography>
+                </Box>
               } else {
                 return <Box fontStyle="italic" justifyContent="center" width="100%">
                   <Typography variant="body2" color="textSecondary">
-                    Chưa tồn tại bảng nào 
+                    Chưa có boards nào 
                   </Typography>
                 </Box>
-              };
+              }
             })()
             }
           </Grid>
