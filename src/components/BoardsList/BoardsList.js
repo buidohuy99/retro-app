@@ -127,7 +127,7 @@ export default function BoardsList() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {(() => {
+            {(() => { 
               if(boards && boards.length > 0){
                 return boards.map((card) => (
                   <Grid item key={card.id} xs={12} sm={6} md={4}>
