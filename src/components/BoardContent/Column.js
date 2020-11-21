@@ -65,7 +65,6 @@ export default function Column({tagtype, tags, board_id}){
             tag_id,
             board_id,
             tag_content,
-            tag_type: tagtype.id
           });
           if(fetched.status === 200 || fetched.status === 304){
             const data = fetched.data.tagInfo;
@@ -146,6 +145,7 @@ export default function Column({tagtype, tags, board_id}){
               color: 'white',
               width: '100%',
             }} onClick={async () => {
+              if(isLoading) return;
               if(!board_id){
                 return;
               }
@@ -168,8 +168,14 @@ export default function Column({tagtype, tags, board_id}){
               background: "#f7f7f7",
             }} elevation={3} tag_content={null} turnOnEdit onStoppingEdit={() => {setShowAddTag(false)}} 
             setLoadingState={(state) => {setIsLoading(state)}}
-            onCommit={(tag_id, tag_content) => {onCommit(tag_id, tag_content)}}
-            onDelete={(tag_id) => {onDelete(tag_id)}}/> : null
+            onCommit={(tag_id, tag_content) => {
+              if(isLoading) return;
+              onCommit(tag_id, tag_content);
+            }}
+            onDelete={(tag_id) => {
+              if(isLoading) return;
+              onDelete(tag_id);
+            }}/> : null
           }
           { isLoading ? 
             <Box fontStyle="italic" style={{
@@ -200,8 +206,14 @@ export default function Column({tagtype, tags, board_id}){
                   }} elevation={3} tag_content = {tag.tag_content} tag_id = {tag.id}
                   prev_tag = {tag.prev_tag} next_tag ={tag.next_tag}
                   setLoadingState={(state) => {setIsLoading(state)}}
-                  onCommit={(tag_id, tag_content) => {onCommit(tag_id, tag_content)}}
-                  onDelete={(tag_id) => {onDelete(tag_id)}}
+                  onCommit={(tag_id, tag_content) => {
+                    if(isLoading) return;
+                    onCommit(tag_id, tag_content);
+                  }}
+                  onDelete={(tag_id) => {
+                    if(isLoading) return;
+                    onDelete(tag_id);
+                  }}
                   draggable card_idx_in_list={index}/>)
                 }
                 {provided.placeholder}
