@@ -31,6 +31,7 @@ export default function Column({tagtype, tags, board_id}){
     }, [tags]);
 
     const onCommit = async (tag_id, tag_content) => {
+      setShowAddTag(false);
       setIsLoading(true);
       if(!tag_id){
         try{
@@ -91,6 +92,7 @@ export default function Column({tagtype, tags, board_id}){
     };
   
     const onDelete = async (tag_id) => {
+      setShowAddTag(false);
       if(!tag_id) return;
       setIsLoading(true);
       try{
