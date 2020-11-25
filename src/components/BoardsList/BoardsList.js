@@ -138,7 +138,7 @@ export default function BoardsList() {
         if(isEditModeOn){
           item.board_id = isEditModeOn.id;
         }
-        const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL + (isEditModeOn ? '/boards/update-info' : '/boards/add'), item);
+        const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL + (isEditModeOn ? '/board-management/update-info' : '/board-management/create'), item);
         if(fetched.status === 200 || fetched.status === 304){
           if(isEditModeOn){
             const modifiedBoard = fetched.data.modifiedBoard;
@@ -176,7 +176,7 @@ export default function BoardsList() {
   const onDelete = async (board_id) => {
     setIsLoading(true);
     try{
-      const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL + '/boards/delete', {board_id});
+      const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL + '/board-management/delete', {board_id});
       if(fetched.status === 200 || fetched.status === 304){
         const cloned = boards.slice().filter((val) => val.id !== board_id);
         setBoards(cloned);
@@ -200,10 +200,10 @@ export default function BoardsList() {
     (async () => {
       try{
         setIsLoading(true);
-        const fetchUser = await AuthAxios.get(process.env.REACT_APP_API_URL + '/users/profile');
+        const fetchUser = await AuthAxios.get(process.env.REACT_APP_API_URL + '/user-management/profile');
         if(fetchUser.status === 200 || fetchUser.status === 304){
           setCurrentUser(fetchUser.data.user);
-          const fetched = await AuthAxios.get(process.env.REACT_APP_API_URL +'/boards');
+          const fetched = await AuthAxios.get(process.env.REACT_APP_API_URL + '/board-management/boards');
           if(fetched.status === 200 || fetched.status === 304){
             setBoards(fetched.data);
           }else{
@@ -281,7 +281,7 @@ export default function BoardsList() {
                         try{
                           const refresh_token = localStorage.getItem(refreshtoken_keyname);
                           if(!refresh_token || refresh_token === 'null') throw new Error("refresh token not found");
-                          await AuthAxios.post(process.env.REACT_APP_API_URL +'/users/logout', {refreshToken: refresh_token});
+                          await AuthAxios.post(process.env.REACT_APP_API_URL +'/auth/logout', {refreshToken: refresh_token});
                         }catch(err){
                           console.log(err);
                         }

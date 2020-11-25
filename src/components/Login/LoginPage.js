@@ -58,7 +58,7 @@ export default function LogIn() {
     } 
     let result;
     try{
-      result = await AuthAxios.post(process.env.REACT_APP_API_URL + "/users/login", {
+      result = await AuthAxios.post(process.env.REACT_APP_API_URL + "/auth/login", {
         username,
         password,
         getRefreshToken: rememberMe ? true : undefined

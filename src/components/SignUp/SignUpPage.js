@@ -58,7 +58,7 @@ export default function SignUp() {
     let result;
     try{
       if(passwordConfirm.localeCompare(password)) throw new Error("Confirm password do not match");
-      result = await AuthAxios.post(process.env.REACT_APP_API_URL + "/users/register", {
+      result = await AuthAxios.post(process.env.REACT_APP_API_URL + "/auth/register", {
         username,
         password, 
         email,

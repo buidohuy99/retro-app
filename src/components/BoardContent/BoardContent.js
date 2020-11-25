@@ -81,7 +81,7 @@ export default function BoardContent({ match, location}) {
         const query = location.search;
         try{
           setIsLoading(true);
-          const fetchUser = await AuthAxios.get(process.env.REACT_APP_API_URL + '/users/profile');
+          const fetchUser = await AuthAxios.get(process.env.REACT_APP_API_URL + '/user-management/profile');
           if(fetchUser.status === 200 || fetchUser.status === 304){
             setCurrentUser(fetchUser.data.user);
             if(!query) {
@@ -89,7 +89,7 @@ export default function BoardContent({ match, location}) {
               setParamError(queryError);
               throw new Error(queryError);
             }
-            const fetched = await AuthAxios.get(process.env.REACT_APP_API_URL +'/tagtypes');
+            const fetched = await AuthAxios.get(process.env.REACT_APP_API_URL +'/tagtype-management/tagtypes');
             if(fetched.status === 200 || fetched.status === 304){
               setTagTypes(fetched.data);
               let parsed, parseError;
@@ -105,7 +105,7 @@ export default function BoardContent({ match, location}) {
                 setParamError(parseError);
                 throw new Error(parseError);
               }
-              const fetchedBoard = await AuthAxios.post(process.env.REACT_APP_API_URL +'/boards/content', {board_collab : parsed.id});
+              const fetchedBoard = await AuthAxios.get(process.env.REACT_APP_API_URL +'/board-management/board-content', { params: { board_collab: parsed.id} });
               if(fetchedBoard.status === 200 || fetchedBoard.status === 304){
                 setBoardInfo(Array.isArray(fetchedBoard.data.foundBoard) ? fetchedBoard.data.foundBoard[0] : fetchedBoard.data.foundBoard);
               }else{
@@ -192,7 +192,7 @@ export default function BoardContent({ match, location}) {
         setIsLoading(true);
         (async () => {
           try{
-            const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/boards/edit-board/edit-tag', {
+            const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
               tag_id: draggedCard[0].id,
               tag_to_exchange: exchangedCard.id,
               tag_content: draggedCard[0].tag_content,
@@ -247,7 +247,7 @@ export default function BoardContent({ match, location}) {
         setIsLoading(true);
         (async () => {
           try{
-            const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/boards/edit-board/edit-tag', {
+            const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
               tag_id: draggedCard[0].id,
               tag_type: parseInt(column_dragging_end),
               left_side: rightCard ? rightCard.id : null,
@@ -326,7 +326,7 @@ export default function BoardContent({ match, location}) {
                             try{
                               const refresh_token = localStorage.getItem(refreshtoken_keyname);
                               if(!refresh_token || refresh_token === 'null') throw new Error("refresh token not found");
-                              await AuthAxios.post(process.env.REACT_APP_API_URL +'/users/logout', {refreshToken: refresh_token});
+                              await AuthAxios.post(process.env.REACT_APP_API_URL +'/auth/logout', {refreshToken: refresh_token});
                             }catch(err){
                               console.log(err);
                             }

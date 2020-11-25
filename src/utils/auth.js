@@ -33,7 +33,7 @@ const updateAccessToken = async () => {
   const refresh_token = localStorage.getItem(refreshtoken_keyname);
   if(!refresh_token || refresh_token === 'null') return null;
   try{
-    const {access_token} = (await AuthAxios.post(process.env.REACT_APP_API_URL + '/users/refresh-token', {refreshToken: refresh_token})).data;
+    const {access_token} = (await AuthAxios.post(process.env.REACT_APP_API_URL + '/auth/refresh-token', {refreshToken: refresh_token})).data;
     setAccessToken(access_token);
     return access_token;
   }catch(e){

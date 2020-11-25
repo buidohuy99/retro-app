@@ -35,7 +35,7 @@ export default function Column({tagtype, tags, board_id}){
       setIsLoading(true);
       if(!tag_id){
         try{
-          const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/boards/edit-board/add-tag', {
+          const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/add-tag', {
             board_id,
             tag_content,
             tag_type: tagtype.id
@@ -62,7 +62,7 @@ export default function Column({tagtype, tags, board_id}){
         }
       } else {
         try{
-          const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/boards/edit-board/edit-tag', {
+          const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
             tag_id,
             board_id,
             tag_content,
@@ -96,7 +96,7 @@ export default function Column({tagtype, tags, board_id}){
       if(!tag_id) return;
       setIsLoading(true);
       try{
-        const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/boards/edit-board/delete-tag', {
+        const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/delete-tag', {
           tag_id,
           board_id,
         });

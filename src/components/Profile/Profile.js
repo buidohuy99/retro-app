@@ -90,7 +90,7 @@ export default function Profile(){
             return;
         }
         try{
-            const user = await AuthAxios.post(process.env.REACT_APP_API_URL + '/users/update-profile', {
+            const user = await AuthAxios.post(process.env.REACT_APP_API_URL + '/user-management/update-profile', {
                 email: email === currentUser.email ?  undefined : email,
                 current_password: newPassword ? password : undefined,
                 new_password: newPassword ?  newPassword : undefined
@@ -147,7 +147,7 @@ export default function Profile(){
         (async () => {
             try{
                 setIsLoading(true);
-                const fetchUser = await AuthAxios.get(process.env.REACT_APP_API_URL + '/users/profile');
+                const fetchUser = await AuthAxios.get(process.env.REACT_APP_API_URL + '/user-management/profile');
                 if(fetchUser.status === 200 || fetchUser.status === 304){
                     setCurrentUser(fetchUser.data.user);
                 }else{
@@ -219,7 +219,7 @@ export default function Profile(){
                             try{
                                 const refresh_token = localStorage.getItem(refreshtoken_keyname);
                                 if(!refresh_token || refresh_token === 'null') throw new Error("refresh token not found");
-                                await AuthAxios.post(process.env.REACT_APP_API_URL +'/users/logout', {refreshToken: refresh_token});
+                                await AuthAxios.post(process.env.REACT_APP_API_URL +'/auth/logout', {refreshToken: refresh_token});
                             }catch(err){
                                 console.log(err);
                             }

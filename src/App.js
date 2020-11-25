@@ -34,7 +34,7 @@ function App() {
       if(existingToken && existingToken !== 'null'){
         try{    
           // vvvvv Check if access token is valid. if not valid will try to refresh the token => if refresh is successful, access token inside storage will automatically update. Otherwise, will throw an error vvvvvvvvv
-          const checkToken = await AuthAxios.post(process.env.REACT_APP_API_URL + '/users/check-token-valid');
+          const checkToken = await AuthAxios.post(process.env.REACT_APP_API_URL + '/auth/check-token-valid');
           if(checkToken.status !== 200) {
             localStorage.removeItem(accesstoken_keyname);
           }else{
