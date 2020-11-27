@@ -192,7 +192,7 @@ export default function BoardContent({ match, location}) {
         setIsLoading(true);
         (async () => {
           try{
-            const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
+            const fetched = await AuthAxios.patch(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
               tag_id: draggedCard[0].id,
               tag_to_exchange: exchangedCard.id,
               tag_content: draggedCard[0].tag_content,
@@ -247,7 +247,7 @@ export default function BoardContent({ match, location}) {
         setIsLoading(true);
         (async () => {
           try{
-            const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
+            const fetched = await AuthAxios.patch(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
               tag_id: draggedCard[0].id,
               tag_type: parseInt(column_dragging_end),
               left_side: rightCard ? rightCard.id : null,

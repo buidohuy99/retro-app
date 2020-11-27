@@ -62,7 +62,7 @@ export default function Column({tagtype, tags, board_id}){
         }
       } else {
         try{
-          const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
+          const fetched = await AuthAxios.patch(process.env.REACT_APP_API_URL +'/tag-management/edit-tag', {
             tag_id,
             board_id,
             tag_content,
@@ -96,9 +96,11 @@ export default function Column({tagtype, tags, board_id}){
       if(!tag_id) return;
       setIsLoading(true);
       try{
-        const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL +'/tag-management/delete-tag', {
-          tag_id,
-          board_id,
+        const fetched = await AuthAxios.delete(process.env.REACT_APP_API_URL +'/tag-management/delete-tag', {
+          params: {
+            tag_id,
+            board_id,
+          }
         });
         if(fetched.status === 200 || fetched.status === 304){
           let clonedTags = columntags.slice().filter((item) => item.id !== tag_id);

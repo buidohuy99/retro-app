@@ -90,7 +90,7 @@ export default function Profile(){
             return;
         }
         try{
-            const user = await AuthAxios.post(process.env.REACT_APP_API_URL + '/user-management/update-profile', {
+            const user = await AuthAxios.patch(process.env.REACT_APP_API_URL + '/user-management/update-profile', {
                 email: email === currentUser.email ?  undefined : email,
                 current_password: newPassword ? password : undefined,
                 new_password: newPassword ?  newPassword : undefined

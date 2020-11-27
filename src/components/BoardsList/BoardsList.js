@@ -138,7 +138,10 @@ export default function BoardsList() {
         if(isEditModeOn){
           item.board_id = isEditModeOn.id;
         }
-        const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL + (isEditModeOn ? '/board-management/update-info' : '/board-management/create'), item);
+        const fetched = isEditModeOn ? 
+        await AuthAxios.patch(process.env.REACT_APP_API_URL + '/board-management/update-info', item)
+        :
+        await AuthAxios.post(process.env.REACT_APP_API_URL + '/board-management/create', item);
         if(fetched.status === 200 || fetched.status === 304){
           if(isEditModeOn){
             const modifiedBoard = fetched.data.modifiedBoard;
@@ -176,7 +179,7 @@ export default function BoardsList() {
   const onDelete = async (board_id) => {
     setIsLoading(true);
     try{
-      const fetched = await AuthAxios.post(process.env.REACT_APP_API_URL + '/board-management/delete', {board_id});
+      const fetched = await AuthAxios.delete(process.env.REACT_APP_API_URL + '/board-management/delete', {params : {board_id}});
       if(fetched.status === 200 || fetched.status === 304){
         const cloned = boards.slice().filter((val) => val.id !== board_id);
         setBoards(cloned);
