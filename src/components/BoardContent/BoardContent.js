@@ -329,6 +329,8 @@ export default function BoardContent({ match, location}) {
                               await AuthAxios.post(process.env.REACT_APP_API_URL +'/users/logout', {refreshToken: refresh_token});
                             }catch(err){
                               console.log(err);
+                              setAuthToken(null);
+                              return;
                             }
                             localStorage.removeItem(refreshtoken_keyname); 
                             //Dont need to setIsLoadingPage to false here to avoid people clicking on random shits, and since setting auth token to null will definitely change the page on PrivateRoutes such as this one
