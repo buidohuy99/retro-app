@@ -74,6 +74,7 @@ export default function TagCard({card_idx_in_list, tag_id, tag_content, prev_tag
                 overflowWrap: 'break-word',
                 userSelect: "none",
                 fontSize: 14,
+                whiteSpace: 'pre-line'
               }} align="justify">
                 {tag_content ? tag_content : ''}
               </Typography>
